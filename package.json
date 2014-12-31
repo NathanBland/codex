@@ -1,0 +1,40 @@
+{
+  "name": "Codex",
+  "version": "1.0.0",
+  "description": "A social coding platform",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NathanBland/codex.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "highlight.js",
+    "codex",
+    "code"
+  ],
+  "author": "Nathan Bland, Malachi Mart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NathanBland/codex/issues"
+  },
+  "homepage": "https://github.com/NathanBland/codex",
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "cookie-parser": "^1.3.3",
+    "express": "^4.10.6",
+    "express-session": "^1.9.3",
+    "highlight.js": "^8.4.0",
+    "mongoose": "^3.8.21",
+    "nunjucks": "^1.1.0",
+    "passport": "^0.2.1",
+    "passport-google": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.2"
+  }
+}
