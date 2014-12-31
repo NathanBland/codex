@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
-var routes = require('./routes/');
+var routes = require('./routes/');//malachi was here
 
 var app = express(); //use express.
 
