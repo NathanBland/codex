@@ -18,7 +18,7 @@ var User = mongoose.Schema({
     name: {
         type: String,
         required: false
-    }
+    },
     username: {
         type: String,
         required: false
@@ -34,11 +34,11 @@ var User = mongoose.Schema({
         token: String,
         email: String,
         name: String
-    }
+    },
     followers: [followerSchema],
-    followed: [followedSchema],
-    
+    followed: [followedSchema]
 });
+
 User.plugin(require('passport-local-mongoose'));
 
 module.exports = mongoose.model('user', User);

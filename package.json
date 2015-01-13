@@ -37,6 +37,7 @@
     "passport-google": "^0.3.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.2",
+    "pm2": "^0.12.3",
     "stylus": "^0.49.3"
   }
 }
