@@ -5,6 +5,7 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var stylus = require('stylus');
+var multer = require('multer');
 var routes = require('./routes/');
 
 var app = express(); //use express.
@@ -39,6 +40,7 @@ app.use(bodyParser.urlencoded({ //make user input safe
     extended: false
 }));
 
+app.use(multer({ dest: './tmp/'})) //need to figure out exactly what this does.
 app.use(cookieParser('Secret secret, I have a secret')); //things to track the user
 app.use(session({
     secret: 'Now once upon a time, there was a secret that was hidden.',

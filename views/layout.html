@@ -3,13 +3,14 @@
 
 <head>
     {% block header %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{{title}}</title>
     {% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/pure/0.5.0/pure-min.css">
-
+    <link rel="stylesheet" href="/css/site.css">
+    {% block moreCss %}
+    {% endblock %}
 </head>
 
 <body>

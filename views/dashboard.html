@@ -1,0 +1,35 @@
+{% extends "layout.html" %} 
+{% block moreCss %}
+    <link rel="stylesheet" href="/css/styles/mono-blue.css"> 
+{% endblock %}
+{% block body %}
+    <a href="/logout">Logout</a>
+    <article class="pure-g">
+        <section class="pure-u-1-3">
+            <h1>Your Code</h1>
+            <form class="pure-form" method="post" action="/code/add">
+                <fieldset>
+                    
+                    <div class="pure-control-group">
+                        <textarea id="code" name="code" rows="10" cols="60">//Write something here</textarea>
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="title">Title</label>
+                        <input id="title" type="text" name="title" class="pure-input-1-2" placeholder="Title">
+                    </div>
+                </fieldset>
+                <button class="pure-button" type="submit">Log it</button>
+            </form>
+        </section>
+        <section class="pure-u-2-3">
+            <h1>Feed (firehose mode)</h1> {% for code in feed %}
+            <div class="codeBit">
+                <h2>Title: {{code.title}}</h2>
+                <h3>Language: {{code.lang}}</h3>
+                {{code.code | safe}}
+                <p>by: {{user.username}}</p>
+            </div>
+            {% endfor %}
+        </section>
+    </article>
+{% endblock %}
