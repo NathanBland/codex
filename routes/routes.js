@@ -2,6 +2,7 @@ var express = require("express");
 var ensureLogin = require('connect-ensure-login');
 var hl = require('highlight.js');
 var Codes = require('../models/Code');
+var Users = require('../models/User');
 var ensureAuthenticated = ensureLogin.ensureAuthenticated;
 
 exports.setup = function() {
@@ -22,14 +23,66 @@ exports.setup = function() {
             title: "Codex"
         });
     });
+    router.get('/purpose', function(req, res, next) { //slash purpose route
+        res.render('purpose', {
+            title: "Codex"
+        });
+    });
     router.get('/dashboard', function(req, res, next) { //about us route
-        Codes.find().sort('-1').exec(function(err, codes){
-            console.log(codes);
-            res.render('dashboard', {
-                title: "Codex",
-                feed: codes
+
+        console.log(req.user);
+        Codes.find()
+            .sort({
+                _id: -1
+            })
+            .populate('user_id')
+            .exec(function(err, codes) {
+                //console.log(codes);
+                if (err) return next(err);
+                res.render('dashboard', {
+                    title: "Codex",
+                    feed: codes,
+                    user: req.user
+                });
+            })
+
+    });
+    router.get('/code/:id', function(req, res, next) {
+        Codes.findOne({
+                _id: req.params.id
+            })
+            .sort()
+            .populate('user_id')
+            .exec(function(err, code) {
+                if (err) {
+                    return res.status(400).send("Bad Request");
+                }
+                
+                res.render('code', {
+                    title: code.title,
+                    code: code
+                });
             });
-        })
+    });
+    router.get('/lang/:name', function(req, res, next) {
+        console.log(req.params.name);
+        Codes.find({
+                lang: req.params.name
+            })
+            .sort()
+            .populate('user_id')
+            .exec(function(err, code) {
+                if (err) {
+                    return res.status(400).send("Bad Request");
+                }
+                res.render('publicFeed', {
+                    title: req.params.name,
+                    feedType: 'lone',
+                    feed: code
+                });
+            });
+    });
+    router.get('/user/:name', function(req, res, next) {
         
     });
     //##############
@@ -37,6 +90,7 @@ exports.setup = function() {
     //##############
 
     router.post('/code/add', saveNew);
+
 
     function saveNew(req, res, next) {
         if (!req.user) {
@@ -53,8 +107,8 @@ exports.setup = function() {
         newCode = newCode.replace(/\r\n\r\n/g, "</p><p>").replace(/\n\n/g, "</p><p>");
         newCode = newCode.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
         newCode = hl.highlightAuto(req.body.code);
-        console.log(newCode);
-        
+        //console.log(newCode);//prints highlighted things.
+
         code.set({
             title: req.body.title || '',
             code: newCode.value,
@@ -65,10 +119,43 @@ exports.setup = function() {
                 res.status(500).send("Server error");
             }
             else {
-                res.redirect('/dashboard');
+                res.status(200).send(res.req.body);
+                console.log(res.req.body);
             }
         });
     }
 
+    //#################
+    //MISC
+    //#################
+    router.post('/user/addUserName', setUsername);
+
+    function setUsername(req, res, next) {
+            if (!req.user) {
+                return res.redirect('/login');
+            }
+            if (req.user.username) {
+                return res.redirect('/dashboard');
+            }
+            var user = req.user;
+            user.set({
+                username: req.body.username
+            })
+
+            user.save(function(err) {
+                if (err)
+                    throw err;
+                if (err) {
+                    res.status(500).send("Server error");
+                }
+                else {
+                    res.status(200).send(res.req.body);
+                    console.log(res.req.body);
+                }
+            });
+        }
+        //#################
+        //End MISC
+        //#################
     return router;
 };

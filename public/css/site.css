@@ -1,10 +1,49 @@
 body {
-    width: 95%;
+    width: 100%;
     display: block;
     position: relative;
     margin-left: auto;
     margin-right: auto;
     background-color: rgba(240, 240, 240, 1);
+}
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.lone {
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+.slider {
+    visibility: hidden;
+}
+.login:hover > .slider {
+    display: block;
+    visibility: visible;
+    transition: visibility 1s;
+}
+.welcome {
+    background-color: rgba(255, 136, 17, 0.58);
+    box-shadow: 0px 0px 5px #000 inset;
+    color: white;
+}
+.welcome h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: .25em;
+    padding-bottom: 0em;
+    font-size: 15em;
+    text-shadow: 9px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.welcome h1 {
+    padding-bottom: 1em;
+}
+.dashboard {
+    padding-left: 2.5%;
+    padding-right: 2.5%;
 }
 .codeBit {
     margin-top: 1em;
@@ -14,4 +53,39 @@ body {
     border-radius: 4px;
     box-sizing: border-box;
     background-color: white;
+    padding: 15px;
+}
+.pure-form fieldset {
+    padding: 0;
+    margin-bottom: 1em;
+}
+fieldset > textarea {
+    margin-bottom: 1em;
+}
+fieldset label {
+    display: block;
+}
+.codeBit > nav > h2 {
+    display: inline-block;
+    margin-top: 0;
+}
+.codeBit > nav > code {
+    margin-left: .5em;
+}
+.codeBit > nav > code:first-of-type {
+    margin-left: 0;
+}
+h1 > small{
+    margin-left: 0.5em;
+    margin-left: 1vw;    
+}
+
+/*
+******************** MEDIA QUERY *********************
+*/
+@media screen and (max-width: 35.5em){
+    .welcome h2 {
+        font-size: 13em;
+        font-size: 45vw;
+    }    
 }

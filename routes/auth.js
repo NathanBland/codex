@@ -7,6 +7,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var User = require('../models/User.js');
 exports.setup = function(app) {
     var router = express.Router();
+    
     //#################
     //Strageties
     //#################

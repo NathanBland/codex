@@ -4,12 +4,14 @@ var Code = require('./Code');
 var followerSchema = mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
         index: true
     }
 });
 var followedSchema = mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
         index: true
     }
 });

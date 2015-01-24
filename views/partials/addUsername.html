@@ -1,0 +1,13 @@
+<section class="pure-u-1 pure-u-md-1-3 pure-u-lg-1-3">
+    <h1>Uh oh</h1>
+    <p>Looks like you still need to set a username!</p>
+    <form id="addUsername" class="pure-form" method="post" action="/user/addUserName">
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username" class="pure-input-1-2" placeholder="e.g. {% if user.google.name %} {{ user.google.name | replace(' ', '') }} {% else %} powerCoder {% endif %}">
+            </div>
+        </fieldset>
+        <button class="pure-button" type="submit"><i class="fa fa-terminal"></i> Set it</button>
+    </form>
+</section>

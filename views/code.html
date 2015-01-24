@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block moreCss %}
+    <link rel="stylesheet" href="/css/styles/mono-blue.css"> 
+{% endblock %}
+
+{% block body %}
+<section class="pure-u-2-3 lone">
+    <div class="codeBit">
+        <nav>
+            <h2>{</h2>
+            <code>Title:</code><a href="/code/{{code._id}}">{{code.title}}</a>
+            <code>Language: </code><a href="/lang/{{code.lang}}">{{code.lang}}</a>
+            </h3>
+            <code>By: </code><a href="/user/{{code.user_id}}">{{code.user_id.username}}</a>
+            <h2>}</h2>
+        </nav>
+        <pre><code class="{{code.lang}}">{{code.code | safe}}</code></pre>
+
+    </div>
+</section>
+{% endblock %}
