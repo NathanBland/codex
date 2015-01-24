@@ -17,8 +17,12 @@ var followedSchema = mongoose.Schema({
 });
 
 var User = mongoose.Schema({
-    
+
     name: {
+        type: String,
+        required: false
+    },
+    email: {
         type: String,
         required: false
     },
@@ -45,10 +49,15 @@ var User = mongoose.Schema({
 User.plugin(require('passport-local-mongoose'));
 
 //user methods
-User.methods.newCode = function(){
+User.methods.newCode = function() {
     var code = new Code();
     code.user_id = this.id;
     return code;
 }
+User.methods.getPosts = function(callback) {
+    return Code.find({
+        user_id: this._id
+    }, callback);
+};
 
 module.exports = mongoose.model('user', User);

@@ -1,0 +1,23 @@
+{% extends "layout.html" %} 
+{% block moreCss %}
+    <link rel="stylesheet" href="/css/styles/mono-blue.css"> 
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/pure/0.5.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/pure/0.5.0/grids-responsive-min.css">
+    <!--<![endif]-->
+{% endblock %}
+{% block body %}
+    <nav class="centered">
+        <a href="/dashboard">Dashboard</a>
+        {% if user %}<a href="/logout">Logout</a>{% endif %}
+    </nav>
+    <article class="pure-g dashboard">
+        {% include "partials/user.html" %}
+    
+        {% include "partials/feed.html" %}
+    </article>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

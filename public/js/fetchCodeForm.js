@@ -11,6 +11,7 @@
             result.then(function(response) {
                 if (response.status === 200) {
                     alert("submitted successfully");
+                    form.reset();
                     location.reload(); 
                 }
                 console.log(response);

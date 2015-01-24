@@ -65,11 +65,12 @@ exports.setup = function() {
             });
     });
     router.get('/lang/:name', function(req, res, next) {
-        console.log(req.params.name);
         Codes.find({
                 lang: req.params.name
             })
-            .sort()
+            .sort({
+                _id: -1
+            })
             .populate('user_id')
             .exec(function(err, code) {
                 if (err) {
@@ -83,7 +84,34 @@ exports.setup = function() {
             });
     });
     router.get('/user/:name', function(req, res, next) {
-        
+        Users.findOne({
+                username: req.params.name
+            })
+            .sort()
+            .exec(function(err, user) {
+                if (err) {
+                    return res.status(400).send("Bad Request");
+                }
+                console.log(user);
+                Codes.find({
+                        user_id: user._id
+                    })
+                    .sort({
+                        _id: -1
+                    })
+                    .populate('user_id')
+                    .exec(function(err, codes) {
+                        if (err) {
+                            return res.status(400).send("Bad Request");
+                        }
+                        console.log(codes);
+                        res.render('profile', {
+                            title: req.params.name,
+                            profile: user,
+                            feed: codes
+                        });
+                    });
+            });
     });
     //##############
     //End Main Nav.

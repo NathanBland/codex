@@ -11,6 +11,7 @@ var codeSchema = new mongoose.Schema({
         index: true
     },
     code: String,
+    isPrivate: Boolean,
     tags: [tagSchema]
 });
 module.exports = mongoose.model('post', codeSchema);
