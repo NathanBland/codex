@@ -10,19 +10,14 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/pure/0.5.0/pure-min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
-    {% block moreCss %}
+    {% block stylesheets %}
     {% endblock %}
 </head>
 
 <body>
- {% block body %}{% endblock %}
+{% block body %}    
+{% endblock %}
+{% block scripts %}
+{% endblock %}
 </body>
-{% block scripts %}{% endblock %}
-<script>
-    var button = document.querySelector('.refresh');
-    button.addEventListener("click", function(ev) {
-        button.children[0].className = "fa fa-refresh fa-spin";
-        location.reload();
-    });
-</script>
 </html>

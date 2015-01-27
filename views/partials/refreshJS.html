@@ -1,0 +1,9 @@
+<script>
+(function(){
+        var button = document.querySelector('.refresh');
+        button.addEventListener("click", function(ev) {
+            button.children[0].className = "fa fa-refresh fa-spin";
+            location.reload();
+        });
+}());
+</script>

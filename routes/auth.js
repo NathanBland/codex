@@ -58,7 +58,7 @@ exports.setup = function(app) {
     passport.use(new TwitterStrategy({
         consumerKey: 'Q2ctAJQDoSUmHKvYOqF72LReV',
         consumerSecret: 'rue9W9PXPiUdNkNhIhUdn3qlA7lYvTpkHC7D3uEZ3QxEll1FNM',
-        callbackURL: "https://codex-c9-nathanbland.c9.io/login/twitter/callback"
+        callbackURL: "https://codex-nathanbland.c9.io/login/twitter/callback"
     }, function(token, tokenSecret, profile, done) {
         
         process.nextTick(function() {

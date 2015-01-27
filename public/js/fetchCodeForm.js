@@ -18,7 +18,7 @@
             });
         } else if (form.id == 'addUsername') {
             console.log("submitted username.");
-            var result = fetch('/user/addUserName', {
+            result = fetch('/user/addUserName', {
                 method: 'post',
                 body: new FormData(form)
             });

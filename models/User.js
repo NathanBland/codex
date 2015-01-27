@@ -28,7 +28,9 @@ var User = mongoose.Schema({
     },
     username: {
         type: String,
-        required: false
+        required: false,
+        unique: true,
+        sparse: true
     },
     twitter: {
         id: String,
