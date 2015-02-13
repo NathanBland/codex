@@ -1,0 +1,84 @@
+.codeTile {
+    position: relative;
+    display: block;
+    min-height: 11em;
+    background-color: #EAEAEA;
+    box-shadow: 0px 1px 3px #DDD inset;
+    margin-bottom: 1em;
+    text-align: center;
+}
+.codeTile .codeTitle {
+    width: 95%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.titleBar {
+    padding-left: 4.75%;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 3px #DDD inset;
+    padding-bottom: .5em;
+    padding-top: .5em;
+}
+.codeTitle-link {
+    text-decoration: none;
+    color: #FFF;
+    font-size: 21px;
+    text-shadow: 0.1px 0.4px #000;
+}
+.codeTile ul {
+    list-style: none;
+    text-align: left;
+    line-height: 2em;
+}
+.codeTile ul a {
+    text-decoration: none;
+}
+.codeTile .fa-stack {
+    height:0;
+}
+.fa-stack {
+    font-size: 4em;
+    color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 0.5em;
+}
+.codeTile h4 {
+    position: relative;
+    margin-top: -0.75em;
+}
+.codeFooter {
+    position: absolute;
+    bottom: 0;
+    padding-left: .5em;
+}
+.codeFooter a {
+    color: white;
+    margin-right: .5em;
+    margin-bottom: 0.15em;
+    position:absolute;
+    margin-top: -1.15em;
+}
+.codeFooter a:nth-child(0n + 2){
+    right: -9em;    
+}
+.codeFooter a:nth-child(0n + 3){
+    right: -10.5em;    
+}
+.codeFooter a:last-child{
+    right: -12em;    
+}
+.codeFooter code {
+    color: blue;
+}
+.username {
+    color: white;
+}
+.lang {
+    background-color: rgba(230, 228, 228, 0.51);
+}
+.javascript > .titleBar {
+    background-color: rgba(61, 227, 121, 0.69);
+}
+.handlebars > .titleBar {
+    background-color: rgba(227, 61, 121, 0.69);
+}

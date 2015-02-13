@@ -1,0 +1,64 @@
+.codeTile {
+    position: relative;
+    display: block;
+    min-height: 10em;
+    background-color: #EAEAEA;
+    box-shadow: 0px 1px 3px #DDD inset;
+    margin-bottom: 1em;
+    text-align: center;
+}
+.codeTile .codeTitle {
+    width: 95%;
+    display: block;
+    
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.titleBar {
+    padding-left: 4.75%;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 3px #DDD inset;
+    padding-bottom: .5em;
+    padding-top: .5em;
+}
+.codeTile ul {
+    list-style:none;
+    text-align: left;
+    line-height: 2em;
+}
+.codeTile ul a {
+    text-decoration:none;
+}
+.codeTile .fa-stack {
+    margin-top: .5em;
+}
+.codeTile h4 {
+    margin-top: .5em;
+}
+.codeFooter {
+    position: absolute;
+    bottom: 0;
+    padding-left: .5em;
+    
+}
+.codeFooter a {
+    color: white;
+    margin-right: .5em;
+}
+.codeFooter code {
+    color: blue;
+}
+.username {
+    color: white;
+}
+.lang {
+    background-color: rgba(230, 228, 228, 0.51);
+}
+.javascript {
+    background-color: rgba(61, 227, 121, 0.69);
+}
+.handlebars {
+    background-color: rgba(227, 61, 121, 0.69);
+}

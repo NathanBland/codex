@@ -1,0 +1,22 @@
+<section class="pure-u-1 pure-u-md-2-3 {{feedType}} pure-g">
+    <h1>Feed <a href="#" class='refresh'><i class="fa fa-refresh"></i></a></h1> 
+    {% for code in feed %}
+    <div class="pure-u-1 pure-u-md-1-5 codeTile {{code.lang}}" style="width: 24%">
+        <div class="titleBar">
+            <a class="lang" href="/lang/{{code.lang}}"><code>{{code.lang}}</code></a>    
+        </div>
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle-o fa-stack-2x"></i>
+            <i class="fa fa-user fa-stack-1x"></i>
+        </span>
+        <h4><code class="codeTitle"><a class="codeTitle-link" title="{{code.title}}" href="/code/{{code._id}}">{{code.title}}</a></code></h4>
+        <nav class="codeFooter">
+            <a class="username" href="/user/{{code.user_id.username}}">{{code.user_id.username}}</a> 
+            <a href="#"><i class="fa fa-link fa-fw"></i></a>
+            <a href="#"><i class="fa fa-bookmark-o fa-fw"></i></a>
+            <a href="#"><i class="fa fa-comment fa-fw"></i></a>
+        </nav>
+        <pre style="display:none;"><code class="{{code.lang}}">{{code.code | safe}}</code></pre>
+    </div>
+    {% endfor %}
+</section>

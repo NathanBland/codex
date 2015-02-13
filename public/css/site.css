@@ -45,6 +45,10 @@ body {
     padding-left: 2.5%;
     padding-right: 2.5%;
 }
+.refresh {
+    color: white;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
+}
 .codeBit {
     margin-top: 1em;
     margin-bottom: 1em;
@@ -79,6 +83,7 @@ h1 > small{
     margin-left: 0.5em;
     margin-left: 1vw;    
 }
+
 
 /*
 ******************** MEDIA QUERY *********************

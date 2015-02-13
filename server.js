@@ -17,9 +17,6 @@ app.set('dbname', 'codex');
 
 mongoose.connect('mongodb://' + app.get('dbhost') + '/' + app.get('dbname'));
 
-//set css preprocessor
-app.use(stylus.middleware(__dirname + '/public/css'));
-
 
 //set view engine
 
@@ -30,6 +27,9 @@ nunjucks.configure('views', { //setting up our templating engine
     express: app,
     watch: true
 });
+
+//set css preprocessor
+app.use(stylus.middleware(__dirname + '/public/css'));
 
 app.set('port', process.env.PORT || 1337); // telling c9 where our app runs.
 app.set('ip', process.env.IP || '0.0.0.0');

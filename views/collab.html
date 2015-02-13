@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+{% block header %}
+    <script src="//cdn.firebase.com/js/client/2.0.2/firebase.js"></script>
+    <!-- ACE and its JavaScript mode and theme files -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/mode-javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/theme-textmate.js"></script>
+    
+    <!--code Mirror -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.css" />
+    
+    <!-- Firepad -->
+    <link rel="stylesheet" href="//cdn.firebase.com/libs/firepad/1.1.0/firepad.css" />
+    <script src="//cdn.firebase.com/libs/firepad/1.1.0/firepad.min.js"></script>
+{% endblock %}
+{% block stylesheets %}
+    
+{% endblock %}
+{% block body %}
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            margin: 0;
+            height: 100%;
+            position: relative;
+        }
+        /* Height / width / positioning can be customized for your use case.
+            For demo purposes, we make firepad fill the entire browser. */
+        
+        #firepad {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: none repeat scroll 0% 0% #FFF;
+        }
+        .notes {
+            position: relative;
+            display: inline-block;
+            width: 49%;
+            height: 100%;
+            background: none repeat scroll 0% 0% #FFF;
+            float: left;
+            -webkit-transition: all .25s;
+        	-moz-transition: all .25s;
+	        transition: all .25s;
+        }
+        .powered-by-firepad {
+            display: none;
+        }
+        .codeWrapper {
+            width: 49%; 
+            display: inline-block;
+            float:left;
+            margin-right: 1em;
+            -webkit-transition: all .25s;
+        	-moz-transition: all .25s;
+	        transition: all .25s;
+        }
+        .expand{
+            width:100%;    
+        }
+        .hidden{
+            display:none;    
+        }
+        .show{
+            display:inline-block;    
+        }
+        .codeEdit-expand{
+            margin-left: 595px;
+            margin-left:46.6vw;
+            position: absolute;
+            margin-top: 12px;
+            margin-top:3vh;
+            z-index: 5;    
+        }
+        .codeEdit-expand:hover{
+            transform:scale(1.1);    
+        }
+        .codeEdit-compress{
+            position: absolute;
+            margin-left: 595px;
+            margin-left:46.6vw;
+            margin-top: 12px;
+            margin-top:3vh;
+            z-index: 5;    
+        }
+        .codeEdit-compress:hover{
+            transform:scale(1.1);    
+        }
+         .textEdit-expand{
+            margin-left: 572px;
+            margin-left: 42.25vw;
+            margin-top: 52px;
+            margin-top: 8.25vh;
+            position: absolute;
+            z-index: 5;    
+        }
+        .textEdit-expand:hover{
+            transform:scale(1.1);    
+        }
+        .textEdit-compress{
+            margin-left: 572px;            
+            margin-left: 42.25vw;
+            margin-top: 52px;
+            margin-top: 8.25vh;
+            position: absolute;
+            z-index: 5;    
+        }
+        .textEdit-compress:hover{
+            transform:scale(1.1);    
+        }
+        @media (max-width: 49.313em){
+            .codeWrapper, #notes{
+                width: 100%;    
+            }
+            
+            .codeEdit-expand, .codeEdit-compress, .textEdit-expand, textEdit-compress {
+                display: none;    
+            }
+        }
+    </style>
+    
+    <div id="codeWrapper" class="firepad codeWrapper"><i class="fa fa-expand codeEdit-expand"></i><i class="fa fa-compress codeEdit-compress hidden"></i><div id="firepad"></div></div>
+    <div id="notes" class="notes"><i class="fa fa-expand textEdit-expand"></i><i class="fa fa-compress textEdit-compress hidden"></i></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function init() {
+        codeInit();
+        var firepadDiv = document.getElementById('notes');
+        var firepadRef = getRefNotes();
+        var codeMirror = CodeMirror(firepadDiv, { lineWrapping: true });
+        var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+            { richTextShortcuts: true, richTextToolbar: true, defaultText: "Notes\nHello world\nCode editor is javascript by default" });
+    }
+    function codeInit(){
+        console.log("init");
+        var firepadRef = getRef();
+        var editor = ace.edit('firepad');
+        var session = editor.getSession();
+        session.setUseWrapMode(true);
+        session.setUseWorker(false);
+        session.setMode("ace/mode/javascript");
+        
+        var firepad = Firepad.fromACE(firepadRef, editor,{
+            defaultText: '//get Started!'
+        });
+        firepad.on('ready', function() {
+          console.log("FIRE IN THE HOLE");
+        });
+        firepad.on('synced', function(isSynced) {
+          console.log(firepad.getText());
+        });
+        console.log(firepad);
+    }
+    function getRef() {
+        var ref = new Firebase('https://brilliant-inferno-4241.firebaseIO.com');
+        var hash = window.location.hash.replace(/#/g, '');
+        if (hash){
+            ref = ref.child(hash);
+        } else {
+            ref = ref.push();
+            window.location = window.location + '#' + ref.key();
+        }
+        if (typeof console !== 'undefined'){
+            console.log('Firebase data: ', ref.toString());
+        }
+        return ref;
+        
+    }
+    function getRefNotes() {
+        var ref = new Firebase('https://brilliant-inferno-4241.firebaseIO.com');
+        var hash = window.location.hash.replace(/#/g, '');
+        if (hash){
+            ref = ref.child(hash+"1");
+        } else {
+            ref = ref.push();
+            window.location = window.location + '#' + ref.key()+"1";
+        }
+        if (typeof console !== 'undefined'){
+            console.log('Firebase data: ', ref.toString());
+        }
+        return ref;
+        
+    }
+    window.onload = init;
+</script>
+<script>
+(function(){
+    var codeEdit = document.querySelector('#codeWrapper');
+    var noteEdit = document.querySelector('#notes');
+    var codeExpand = document.querySelector('#codeWrapper .fa-expand');
+    var codeCompress = document.querySelector('#codeWrapper .fa-compress');
+    var textExpand = document.querySelector('#notes .fa-expand');
+    var textCompress = document.querySelector('#notes .fa-compress');
+    
+    function expand(ev){
+        ev.currentTarget.parentNode.classList.add('expand');
+        if(ev.currentTarget.parentNode.previousElementSibling === codeEdit){
+            codeEdit.classList.add('hidden');
+        }else{
+            noteEdit.classList.add('hidden');        
+        }
+        ev.currentTarget.classList.add('hidden');
+        ev.currentTarget.nextSibling.classList.remove('hidden');
+    }
+    
+    function compress(ev){
+        ev.currentTarget.parentNode.classList.remove('expand');
+        if(ev.currentTarget.parentNode.previousElementSibling === codeEdit){
+            codeEdit.classList.remove('hidden');   
+        }else{
+            noteEdit.classList.remove('hidden');    
+        }
+        ev.currentTarget.classList.add('hidden');
+        ev.currentTarget.previousSibling.classList.remove('hidden');
+    }
+    
+    codeExpand.addEventListener('click', expand, false);
+    codeCompress.addEventListener('click', compress, false);
+    textExpand.addEventListener('click', expand, false);
+    textCompress.addEventListener('click', compress, false);
+}());
+</script>
+{% endblock %}

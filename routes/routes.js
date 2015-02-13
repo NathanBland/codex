@@ -17,6 +17,11 @@ exports.setup = function() {
             title: "Codex"
         });
     });
+    router.get('/collab', function(req, res, next) { //index route
+        res.render('collab', {
+            title: "Codex | Edit Together"
+        });
+    });
 
     router.get('/about', function(req, res, next) { //about us route
         res.render('about', {
@@ -29,8 +34,6 @@ exports.setup = function() {
         });
     });
     router.get('/dashboard', function(req, res, next) { //about us route
-
-        console.log(req.user);
         Codes.find()
             .sort({
                 _id: -1
@@ -40,6 +43,40 @@ exports.setup = function() {
                 //console.log(codes);
                 if (err) return next(err);
                 res.render('dashboard', {
+                    title: "Codex",
+                    feed: codes,
+                    user: req.user
+                });
+            })
+
+    });
+    router.get('/tileFeed', function(req, res, next) { //about us route
+        Codes.find()
+            .sort({
+                _id: -1
+            })
+            .populate('user_id')
+            .exec(function(err, codes) {
+                //console.log(codes);
+                if (err) return next(err);
+                res.render('tileFeed', {
+                    title: "Codex",
+                    feed: codes,
+                    user: req.user
+                });
+            })
+
+    });
+    router.get('/tileFeedmal', function(req, res, next) { //about us route
+        Codes.find()
+            .sort({
+                _id: -1
+            })
+            .populate('user_id')
+            .exec(function(err, codes) {
+                //console.log(codes);
+                if (err) return next(err);
+                res.render('tileFeed-mal', {
                     title: "Codex",
                     feed: codes,
                     user: req.user
@@ -157,6 +194,8 @@ exports.setup = function() {
     //MISC
     //#################
     router.post('/user/addUserName', setUsername);
+    router.get('/api/lang/options', getLangOptions);
+    router.get('/api/lang/:lang', getLang);
 
     function setUsername(req, res, next) {
             if (!req.user) {
@@ -171,9 +210,8 @@ exports.setup = function() {
             })
 
             user.save(function(err) {
-                if (err)
-                    throw err;
                 if (err) {
+                    console.info(err);//awk.
                     res.status(500).send("Server error");
                 }
                 else {
@@ -182,8 +220,20 @@ exports.setup = function() {
                 }
             });
         }
-        //#################
-        //End MISC
-        //#################
+        
+    function getLangOptions(req,res,next){
+        var result = hl.listLanguages();
+        JSON.stringify(result);
+        return res.json(result);
+    }
+    
+    function getLang(req,res,next){
+        var result = hl.getLanguage(req.params.lang);
+        JSON.stringify(result);
+        return res.json(result);
+    }
+    //#################
+    //End MISC
+    //#################
     return router;
 };
